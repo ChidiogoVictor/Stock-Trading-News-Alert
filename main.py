@@ -5,7 +5,9 @@ COMPANY_NAME = "Tesla Inc"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+
 STOCK_API_KEY = "XV36VWEKX3VSLWT4"
+NEWS_API_KEY = "5263bf0c2b2e49738437cb633ce1bf45"
 
 # STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -39,9 +41,14 @@ percentage_diff = (difference / float(yesterday_closing_price)) * 100
 print(percentage_diff)
 
 # If TODO4 percentage is greater than 5 then print("Get News").
-if percentage_diff > 5:
-    print("Get News")
+if percentage_diff > 0.2:
+    news_params = {
+        "apiKey": STOCK_API_KEY,
+        "q": COMPANY_NAME,
+    }
 
+    news_response = requests.get(NEWS_ENDPOINT, params=news_params)
+    print(news_response.json())
     ## STEP 2: https://newsapi.org/ 
     # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 
